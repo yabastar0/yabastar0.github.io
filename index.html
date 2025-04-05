@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Eaglercraft Loader</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #111;
+      color: #eee;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      gap: 1rem;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 10px;
+      background: #4CAF50;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #45a049;
+    }
+    small {
+      opacity: 0.6;
+    }
+    #browser-warning {
+      color: #ffcc00;
+      font-size: 1rem;
+      text-align: center;
+      display: none;
+    }
+    #wasm-speed-prompt {
+      color: #00cc00;
+      font-size: 1rem;
+      text-align: center;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>AK's Eaglercraft loader</h1>
+  <p>Select version to launch:</p>
+  <div>
+    <button onclick="loadWASM()">Launch WASM 1.12.2 (JSPI support required)</button>
+    <button onclick="loadLegacy()">Launch JS 1.12.2 (Javascript support required)</button>
+  </div>
+  
+  <div id="browser-warning">
+    <small>With your current browser, try Javascript, or switch to a Chromium-based browser for WASM support.</small>
+  </div>
+
+  <div id="wasm-speed-prompt">
+    <small>Try WASM for much faster speed!</small>
+  </div>
+
+  <script>
+    function loadWASM() {
+      window.location.href = 'eaglercraft/wasm/index.html';
+    }
+
+    function loadLegacy() {
+      window.location.href = 'eaglercraft/js/index.html';
+    }
+
+    function isJSPICompatibleBrowser() {
+      // Basic browser detection for JSPI compatibility
+      const userAgent = navigator.userAgent.toLowerCase();
+      return userAgent.includes('chrome') || userAgent.includes('edge') || userAgent.includes('opera');
+    }
+
+    // Check if the browser is compatible with JSPI for WASM
+    if (!isJSPICompatibleBrowser()) {
+      document.getElementById('browser-warning').style.display = 'block';
+    } else {
+      document.getElementById('wasm-speed-prompt').style.display = 'block';
+    }
+  </script>
+</body>
+</html>
